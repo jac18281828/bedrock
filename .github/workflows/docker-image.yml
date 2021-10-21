@@ -15,5 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag gmt-bedrock:latest
-      run: docker push --tag gmt-bedrock:latest jac18281828/gmt:latest
+      run: |
+        docker build . --file Dockerfile --tag gmt-bedrock:latest
+        docker push --tag gmt-bedrock:latest jac18281828/gmt:latest
