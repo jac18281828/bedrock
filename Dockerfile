@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim as builder
+FROM debian:stable-slim as builder
 
 RUN apt update && \
     apt -y install curl gzip
