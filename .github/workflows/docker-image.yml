@@ -16,5 +16,5 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: |
-        docker build . --file Dockerfile --tag bedrock-gmt:$(date +%m%d%y)
-        docker push -a jac18281828/gmt:$(date +%m%d%y)
+        docker build . --file Dockerfile --tag jac18281828/gmt:$(date +%m%d%y)
+        docker push jac18281828/gmt:$(date +%m%d%y)
