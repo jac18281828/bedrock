@@ -1,7 +1,8 @@
 FROM debian:stable-slim as builder
 
 RUN apt update && \
-    apt -y install curl gzip
+        apt install -y -q --no-install-recommends \
+        curl gzip
 
 WORKDIR /bedrock
 
@@ -11,8 +12,12 @@ RUN gunzip /bedrock/ETOPO1_Bed_g_gmt4.grd.gz
 
 FROM debian:bullseye-slim
 
-RUN apt update && \
-    apt -y install gmt gmt-gshhg-high ghostscript
+RUN export DEBIAN_FRONTEND=noninteractive && \
+        apt update && \
+        apt install -y -q --no-install-recommends \
+        gmt gmt-gshhg-high ghostscript
+
+RUN rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /bedrock/ETOPO1_Bed_g_gmt4.grd /bedrock/ETOPO1_Bed_g_gmt4.grd
 
