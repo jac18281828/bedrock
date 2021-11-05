@@ -2,7 +2,7 @@ FROM debian:stable-slim as builder
 
 RUN apt update && \
         apt install -y -q --no-install-recommends \
-        curl gzip
+        curl gzip ca-certificates
 
 WORKDIR /bedrock
 
