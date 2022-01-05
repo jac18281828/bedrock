@@ -2,7 +2,7 @@ FROM debian:stable-slim as builder
 
 RUN apt update && \
         apt install -y -q --no-install-recommends \
-        curl gzip ca-certificates
+        gzip ca-certificates
 RUN apt clean
 RUN rm -rf /var/lib/apt/lists/*
 
@@ -10,10 +10,10 @@ RUN rm -rf /var/lib/apt/lists/*
 WORKDIR /bedrock
 
 # fetch and unzip ETOPO1 Bedrock Grid file
-RUN curl -q --silent --output /bedrock/ETOPO1_Bed_g_gmt4.grd.gz https://ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/bedrock/grid_registered/netcdf/ETOPO1_Bed_g_gmt4.grd.gz
+ADD https://ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/bedrock/grid_registered/netcdf/ETOPO1_Bed_g_gmt4.grd.gz /bedrock/ETOPO1_Bed_g_gmt4.grd.gz
 RUN gunzip /bedrock/ETOPO1_Bed_g_gmt4.grd.gz
 
-FROM debian:bullseye-slim
+FROM debian:stable-slim
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
         apt update && \
