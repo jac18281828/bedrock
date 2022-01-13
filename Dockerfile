@@ -6,7 +6,6 @@ RUN apt update && \
 RUN apt clean
 RUN rm -rf /var/lib/apt/lists/*
 
-
 WORKDIR /bedrock
 
 # fetch and unzip ETOPO1 Bedrock Grid file
