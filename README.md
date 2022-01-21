@@ -1,11 +1,14 @@
 # bedrock
 
-GMT 6.1, Debian Bullseye slim and ETOPO1 Bedrock
+GMT 6.1, Debian and ETOPO1 [Bedrock](https://hub.docker.com/r/jac18281828/bedrock)
 
-Example Dockerfile - use as a builder but cut down grid file to a specific region
+![ETOPO1 Ice](bedrock/etopo1_small_copper.png)
 
-Ice surface is also available from tag: etopo1-gmt6-ice-${VERSION}
+Example Dockerfile
+ - use as a builder 
+ - cut down grid file to a specific region
 
+Ice surface also available from tag: etopo1-gmt6-ice-${VERSION}
 
 ```
 FROM jac18281828/bedrock:latest as builder
@@ -27,4 +30,17 @@ RUN apt update && \
 COPY --from=builder /bedrock/ETOPO1_asiaminor.grd /bedrock/ETOPO1_asiaminor.grd
 
 CMD echo Bedrock!
+```
+
+Example Map: Copper World Relief (seen above):
+
+```
+#!/usr/bin/env bash
+
+ETOPO1=/bedrock/ETOPO1_Ice_g_gmt4.grd
+
+gmt begin /output/world
+gmt makecpt -Ccopper -T-18000/28500
+gmt grdimage ${ETOPO1} -n+c
+gmt end
 ```
