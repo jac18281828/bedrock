@@ -19,7 +19,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}        
     - name: Build the Docker image
       run: |
-        docker build . --file Dockerfile --tag jac18281828/${{github.event.repository.name}}:$(date +%m%d%y)
-        docker tag jac18281828/${{github.event.repository.name}}:$(date +%m%d%y) jac18281828/${{github.event.repository.name}}:latest
-        docker push jac18281828/${{github.event.repository.name}}
+        export BEDROCK_BUILD_VERSION=$(date +%m%d%y)
+        docker-compose build
+        docker-compose push
 

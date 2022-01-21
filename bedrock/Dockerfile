@@ -1,5 +1,6 @@
 FROM debian:stable-slim as builder
-
+ARG ETOPO_GRIDFILE
+ARG ETOPO_URL
 RUN apt update && \
         apt install -y -q --no-install-recommends \
         gzip ca-certificates
@@ -8,9 +9,9 @@ RUN rm -rf /var/lib/apt/lists/*
 
 WORKDIR /bedrock
 
-# fetch and unzip ETOPO1 Bedrock Grid file
-ADD https://ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/bedrock/grid_registered/netcdf/ETOPO1_Bed_g_gmt4.grd.gz /bedrock/ETOPO1_Bed_g_gmt4.grd.gz
-RUN gunzip /bedrock/ETOPO1_Bed_g_gmt4.grd.gz
+# fetch and unzip ETOPO Grid file
+ADD ${ETOPO_URL} /bedrock/${ETOPO_GRIDFILE}.gz
+RUN gunzip /bedrock/${ETOPO_GRIDFILE}.gz
 
 FROM debian:stable-slim
 
@@ -22,6 +23,6 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 RUN apt clean
 RUN rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /bedrock/ETOPO1_Bed_g_gmt4.grd /bedrock/ETOPO1_Bed_g_gmt4.grd
+COPY --from=builder /bedrock/${ETOPO_GRIDFILE} /bedrock/${ETOPO_GRIDFILE}
 
-CMD echo Bedrock!
+CMD echo ${ETOPO_GRIDFILE}!
