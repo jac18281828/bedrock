@@ -4,9 +4,11 @@ GMT 6.1, Debian Bullseye slim and ETOPO1 Bedrock
 
 Example Dockerfile - use as a builder but cut down grid file to a specific region
 
+Ice surface is also available from tag: etopo1-gmt6-ice-${VERSION}
+
 
 ```
-FROM jac18281828/gmt:latest as builder
+FROM jac18281828/bedrock:latest as builder
 
 WORKDIR /bedrock
 
