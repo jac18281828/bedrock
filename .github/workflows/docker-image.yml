@@ -25,6 +25,7 @@ jobs:
         docker-compose build
     - name: Push the images
       run:
+        export BEDROCK_BUILD_VERSION=$(date +%m%d%y)        
         docker-compose push
       if: ${{ github.event_name == 'release' && github.event.action == 'created' }}
 
