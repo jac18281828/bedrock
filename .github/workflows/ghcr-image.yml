@@ -19,9 +19,11 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3
+        
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
+        
       -
         name: Login to GitHub Container Registry
         uses: docker/login-action@v1
@@ -29,9 +31,11 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+          
       - name: Update image name for ghcr
         run: |
           sed -i 's/jac18281828\/bedrock/ghcr.io\/jac18281828\/bedrock/g' docker-compose.yml
+          
       -
         name: Build and Push Image
         run: |

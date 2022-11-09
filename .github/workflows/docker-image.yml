@@ -28,7 +28,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}        
-        - name: Build Image
       -
         name: Build and Push Image
         run: |
@@ -36,4 +35,3 @@ jobs:
           docker-compose build
           docker-compose push
         if: ${{ github.event_name == 'release' && github.event.action == 'created' }}
-
