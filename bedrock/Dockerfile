@@ -23,6 +23,8 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 RUN apt clean
 RUN rm -rf /var/lib/apt/lists/*
 
+RUN gmt --version
+
 COPY --from=builder /bedrock/${ETOPO_GRIDFILE} /bedrock/${ETOPO_GRIDFILE}
 
 CMD echo ${ETOPO_GRIDFILE}!
