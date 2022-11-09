@@ -1,6 +1,6 @@
 # bedrock
 
-GMT 6.1, Debian and ETOPO1 [Bedrock](https://hub.docker.com/r/jac18281828/bedrock)
+GMT 6, Debian and ETOPO1 [Bedrock](https://hub.docker.com/r/jac18281828/bedrock)
 
 ![ETOPO1 Ice](bedrock/etopo1_small_copper.png)
 
