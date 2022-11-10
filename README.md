@@ -10,6 +10,8 @@ Example Dockerfile
 
 Ice surface also available from tag: etopo1-gmt6-ice-${VERSION}
 
+Also available from [GitHub GHCR](https://github.com/jac18281828/bedrock/pkgs/container/bedrock)
+
 ```
 FROM jac18281828/bedrock:latest as builder
 
