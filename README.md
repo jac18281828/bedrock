@@ -4,13 +4,17 @@ GMT 6, Debian and ETOPO1 [Bedrock](https://hub.docker.com/r/jac18281828/bedrock)
 
 ![ETOPO1 Ice](bedrock/etopo1_small_copper.png)
 
-Example Dockerfile
- - use as a builder 
- - cut down grid file to a specific region
-
 Ice surface also available from tag: etopo1-gmt6-ice-${VERSION}
 
 Also available from [GitHub GHCR](https://github.com/jac18281828/bedrock/pkgs/container/bedrock)
+
+### Architecture
+* linux/amd64 
+* linux/arm64
+
+Example Dockerfile
+ - use as a builder 
+ - cut down grid file to a specific region
 
 ```
 FROM jac18281828/bedrock:latest as builder
