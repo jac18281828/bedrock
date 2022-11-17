@@ -45,8 +45,8 @@ jobs:
       -
         name: Build and Push
         run: |
-          export BEDROCK_BUILD_VERSION=$( echo ${GITHUB_SHA} | cut -c 1-8 )
-          COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 DOCKER_DEFAULT_PLATFORM=linux/amd64 docker-compose build && docker-compose push
           export BEDROCK_BUILD_VERSION=$( echo ${GITHUB_SHA} | cut -c 1-8 )-arm64
-          COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 DOCKER_DEFAULT_PLATFORM=linux/arm64/v8 docker-compose build && docker-compose push          
+          COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 DOCKER_DEFAULT_PLATFORM=linux/arm64/v8 docker compose build && DOCKER_DEFAULT_PLATFORM=linux/arm64/v8 docker compose push          
+          export BEDROCK_BUILD_VERSION=$( echo ${GITHUB_SHA} | cut -c 1-8 )
+          COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 DOCKER_DEFAULT_PLATFORM=linux/amd64 docker compose build && DOCKER_DEFAULT_PLATFORM=linux/amd64 docker compose push
         if: ${{ github.event_name == 'release' && github.event.action == 'created' }}
