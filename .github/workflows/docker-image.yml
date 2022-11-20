@@ -21,10 +21,12 @@ jobs:
       matrix:
         surface: [bedrock, ice_surface]
         include:
-          - surface: bedrock
-            gridfile: ETOPO1_Bed_g_gmt4.grd
           - surface: ice_surface            
             gridfile: ETOPO1_Ice_g_gmt4.grd
+            latest: ice_surface-latest
+          - surface: bedrock
+            gridfile: ETOPO1_Bed_g_gmt4.grd
+            latest: latest
     runs-on: ubuntu-latest
     steps:
       -
@@ -73,5 +75,6 @@ jobs:
           tags: |
             ${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-v${{ github.event.release.tag_name }}
             ${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ env.REPOSITORY_SHA }}
-            ${{ env.REPOSITORY_PATH }}:latest
-        if: ${{ github.event_name == 'release' && github.event.action == 'created' }}
+            ${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}
+            ${{ env.REPOSITORY_PATH }}:${{ matrix.latest }}
+

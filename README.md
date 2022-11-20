@@ -17,7 +17,7 @@ Example Dockerfile
  - cut down grid file to a specific region
 
 ```
-FROM jac18281828/bedrock:latest as builder
+FROM jac18281828/bedrock:ice_surface as builder
 
 WORKDIR /bedrock
 
@@ -26,9 +26,9 @@ ARG WEST=-5
 ARG NORTH=55
 ARG SOUTH=29
 
-RUN gmt grdcut /bedrock/ETOPO1_Bed_g_gmt4.grd -R${WEST}/${EAST}/${SOUTH}/${NORTH} -G/bedrock/ETOPO1_asiaminor.grd
+RUN gmt grdcut /bedrock/ETOPO1_Ice_g_gmt4.grd -R${WEST}/${EAST}/${SOUTH}/${NORTH} -G/bedrock/ETOPO1_asiaminor.grd
 
-FROM debian:latest-slim
+FROM debian:stable-slim
 
 RUN apt update && \
     apt -y install gmt gmt-gshhg-high ghostscript
