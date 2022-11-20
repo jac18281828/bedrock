@@ -24,7 +24,7 @@ jobs:
           - surface: bedrock
             gridfile: ETOPO1_Bed_g_gmt4.grd
           - surface: ice_surface            
-            girdfile: ETOPO1_Ice_g_gmt4.grd
+            gridfile: ETOPO1_Ice_g_gmt4.grd
     runs-on: ubuntu-latest
     steps:
       -
