@@ -1,13 +1,5 @@
 version: '3.9'
 services:
-  bedrock-latest:
-    image: jac18281828/bedrock
-    network_mode: none
-    build:
-      context: bedrock/      
-      args: 
-        - ETOPO_GRIDFILE=ETOPO1_Bed_g_gmt4.grd
-        - ETOPO_URL=https://ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/bedrock/grid_registered/netcdf/ETOPO1_Bed_g_gmt4.grd.gz
   etopo1-gmt6-bedrock:
     image:  jac18281828/bedrock:etopo1-gmt6-bedrock-${BEDROCK_BUILD_VERSION}
     network_mode: none    
@@ -15,7 +7,7 @@ services:
       context: bedrock/      
       args: 
         - ETOPO_GRIDFILE=ETOPO1_Bed_g_gmt4.grd
-        - ETOPO_URL=https://ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/bedrock/grid_registered/netcdf/ETOPO1_Bed_g_gmt4.grd.gz
+        - ETOPO_SURFACE=bedrock
   etopo1-gmt6-ice-surface:
     image:  jac18281828/bedrock:etopo1-gmt6-ice-${BEDROCK_BUILD_VERSION}
     network_mode: none    
@@ -23,4 +15,4 @@ services:
       context: bedrock/      
       args: 
         - ETOPO_GRIDFILE=ETOPO1_Ice_g_gmt4.grd
-        - ETOPO_URL=https://ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/ice_surface/grid_registered/netcdf/ETOPO1_Ice_g_gmt4.grd.gz
+        - ETOPO_SURFACE=ice_surface        

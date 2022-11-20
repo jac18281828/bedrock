@@ -1,10 +1,13 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ main ]
+  workflow_dispatch:
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+  push:
+    branches:
+      - "*"
   release:
     types: [created]
 
@@ -13,7 +16,15 @@ concurrency:
   cancel-in-progress: true
     
 jobs:
-  build:
+  dockerimage:
+    strategy:
+      matrix:
+        surface: [bedrock, ice_surface]
+        include:
+          - surface: bedrock
+            gridfile: ETOPO1_Bed_g_gmt4.grd
+          - surface: ice_surface            
+            girdfile: ETOPO1_Ice_g_gmt4.grd
     runs-on: ubuntu-latest
     steps:
       -
@@ -22,6 +33,14 @@ jobs:
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Generate repository name
+        run: |
+          echo "REPOSITORY_PATH=$( echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]' )" >> ${GITHUB_ENV}
+          echo "REPOSITORY_SHA=$( echo ${GITHUB_SHA} | cut -c 1-8 )" >> ${GITHUB_ENV}
       -
         name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -42,11 +61,17 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      -
-        name: Build and Push
-        run: |
-          export BEDROCK_BUILD_VERSION=$( echo ${GITHUB_SHA} | cut -c 1-8 )-arm64
-          COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 DOCKER_DEFAULT_PLATFORM=linux/arm64/v8 docker compose build && DOCKER_DEFAULT_PLATFORM=linux/arm64/v8 docker compose push          
-          export BEDROCK_BUILD_VERSION=$( echo ${GITHUB_SHA} | cut -c 1-8 )
-          COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 DOCKER_DEFAULT_PLATFORM=linux/amd64 docker compose build && DOCKER_DEFAULT_PLATFORM=linux/amd64 docker compose push
+      - name: Build and Push
+        uses: docker/build-push-action@v3
+        with:
+          context: bedrock/
+          platforms: linux/amd64, linux/arm64/v8
+          build-args:
+            - ETOPO_GRIDFILE=${{ matrix.gridfile }}
+            - ETOPO_SURFACE=${{ matrix.surface }}
+          push: ${{ github.event_name == 'release' && github.event.action == 'created' }}
+          tags: |
+            ${{ env.REPOSITORY_PATH }}:v${{ github.event.release.tag_name }}
+            ${{ env.REPOSITORY_PATH }}:${{ env.REPOSITORY_SHA }}
+            ${{ env.REPOSITORY_PATH }}:latest
         if: ${{ github.event_name == 'release' && github.event.action == 'created' }}

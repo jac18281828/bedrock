@@ -28,7 +28,7 @@ ARG SOUTH=29
 
 RUN gmt grdcut /bedrock/ETOPO1_Bed_g_gmt4.grd -R${WEST}/${EAST}/${SOUTH}/${NORTH} -G/bedrock/ETOPO1_asiaminor.grd
 
-FROM debian:bullseye-slim
+FROM debian:latest-slim
 
 RUN apt update && \
     apt -y install gmt gmt-gshhg-high ghostscript
