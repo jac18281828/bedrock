@@ -1,6 +1,8 @@
 # bedrock
 
-GMT 6, Debian and ETOPO1 [Bedrock](https://hub.docker.com/r/jac18281828/bedrock)
+GMT 6 and ETOPO1 Docker image [Bedrock](https://hub.docker.com/r/jac18281828/bedrock)
+
+[Releases](https://github.com/jac18281828/bedrock/releases)
 
 ![ETOPO1 Ice](bedrock/etopo1_small_copper.png)
 
@@ -50,3 +52,8 @@ gmt makecpt -Ccopper -T-18000/28500
 gmt grdimage ${ETOPO1} -n+c
 gmt end
 ```
+
+
+Complete working example:
+
+<script src="https://gist.github.com/jac18281828/78c28ee0e00b1936622b17cc783b2701.js"></script>
