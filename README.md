@@ -53,7 +53,5 @@ gmt grdimage ${ETOPO1} -n+c
 gmt end
 ```
 
+Complete [working example](https://gist.github.com/jac18281828/78c28ee0e00b1936622b17cc783b2701)
 
-Complete working example:
-
-<script src="https://gist.github.com/jac18281828/78c28ee0e00b1936622b17cc783b2701.js"></script>
