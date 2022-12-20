@@ -29,4 +29,12 @@ RUN gmt --version
 
 COPY --from=builder /bedrock/${ETOPO_GRIDFILE} /bedrock/${ETOPO_GRIDFILE}
 
-CMD echo ${ETOPO_GRIDFILE}!
+LABEL org.label-schema.build-date=$BUILD_DATE \
+    org.label-schema.name="bedrock" \
+    org.label-schema.description="GMT6 and ETOPO1 Ice or Bedrock Container" \
+    org.label-schema.url="https://github.com/jac18281828/bedrock" \
+    org.label-schema.vcs-ref=$VCS_REF \
+    org.label-schema.vcs-url="git@github.com:jac18281828/bedrock.git" \
+    org.label-schema.vendor="John Cairns" \
+    org.label-schema.version=$VERSION \
+    org.label-schema.schema-version="1.0"

@@ -68,10 +68,11 @@ jobs:
         with:
           context: bedrock/
           platforms: linux/amd64, linux/arm64/v8
+          push: ${{ github.event_name == 'release' && github.event.action == 'created' }}
           build-args: |
             ETOPO_GRIDFILE=${{ matrix.gridfile }}
             ETOPO_SURFACE=${{ matrix.surface }}
-          push: ${{ github.event_name == 'release' && github.event.action == 'created' }}
+            VERSION=${{ github.event.release.tag_name }}            
           tags: |
             ${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-v${{ github.event.release.tag_name }}
             ${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ env.REPOSITORY_SHA }}
