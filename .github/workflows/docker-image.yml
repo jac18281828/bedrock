@@ -25,7 +25,7 @@ jobs:
             gridfile: ETOPO_2022_v1_30s_N90W180_surface.nc
             latest: ice_surface-latest
           - surface: bed
-            gridfile: ETOPO_2022_v1_30s_N90W180_ice.nc
+            gridfile: ETOPO_2022_v1_30s_N90W180_bed.nc
             latest: latest
     runs-on: ubuntu-latest
     steps:
