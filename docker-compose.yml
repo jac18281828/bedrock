@@ -1,18 +1,20 @@
 version: '3.9'
 services:
-  etopo1-gmt6-bedrock:
-    image:  jac18281828/bedrock:etopo1-gmt6-bedrock-${BEDROCK_BUILD_VERSION}
+  etopo-2022-30s-bedrock:
+    image:  jac18281828/bedrock:etopo-2022-30s-gmt6-bedrock-${VERSION}
     network_mode: none    
     build:
       context: bedrock/      
-      args: 
-        - ETOPO_GRIDFILE=ETOPO1_Bed_g_gmt4.grd
-        - ETOPO_SURFACE=bedrock
-  etopo1-gmt6-ice-surface:
-    image:  jac18281828/bedrock:etopo1-gmt6-ice-${BEDROCK_BUILD_VERSION}
+      args:
+        - ETOPO_RES=30s
+        - ETOPO_GRIDFILE=ETOPO_2022_v1_30s_N90W180_bed.nc
+        - ETOPO_SURFACE=bed
+  etopo-30s-2022-ice-surface:
+    image:  jac18281828/bedrock:etopo-2022-30s-gmt6-ice-${VERSION}
     network_mode: none    
     build:
       context: bedrock/      
-      args: 
-        - ETOPO_GRIDFILE=ETOPO1_Ice_g_gmt4.grd
-        - ETOPO_SURFACE=ice_surface        
+      args:
+        - ETOPO_RES=30s        
+        - ETOPO_GRIDFILE=ETOPO_2022_v1_30s_N90W180_surface.nc
+        - ETOPO_SURFACE=surface

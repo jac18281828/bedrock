@@ -21,11 +21,11 @@ jobs:
       matrix:
         surface: [bedrock, ice_surface]
         include:
-          - surface: ice_surface            
-            gridfile: ETOPO1_Ice_g_gmt4.grd
+          - surface: surface            
+            gridfile: ETOPO_2022_v1_30s_N90W180_surface.nc
             latest: ice_surface-latest
-          - surface: bedrock
-            gridfile: ETOPO1_Bed_g_gmt4.grd
+          - surface: bed
+            gridfile: ETOPO_2022_v1_30s_N90W180_ice.nc
             latest: latest
     runs-on: ubuntu-latest
     steps:
@@ -70,6 +70,7 @@ jobs:
           platforms: linux/amd64, linux/arm64/v8
           push: ${{ github.event_name == 'release' && github.event.action == 'created' }}
           build-args: |
+            ETOPO_RES=30s
             ETOPO_GRIDFILE=${{ matrix.gridfile }}
             ETOPO_SURFACE=${{ matrix.surface }}
             VERSION=${{ github.event.release.tag_name }}            

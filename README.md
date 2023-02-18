@@ -1,12 +1,14 @@
 # bedrock
 
-GMT 6 and ETOPO1 Docker image [Bedrock](https://hub.docker.com/r/jac18281828/bedrock)
+### Updated for 2022 ETOPO 30s
+
+GMT 6 and ETOPO Docker image [Bedrock](https://hub.docker.com/r/jac18281828/bedrock)
 
 [Releases](https://github.com/jac18281828/bedrock/releases)
 
-![ETOPO1 Ice](bedrock/etopo1_small_copper.png)
+![ETOPO Ice](bedrock/etopo_small_copper.png)
 
-Ice surface also available from tag: etopo1-gmt6-ice-${VERSION}
+Ice surface also available from tag: etopo-2022-gmt6-ice-${VERSION}
 
 Also available from [GitHub GHCR](https://github.com/jac18281828/bedrock/pkgs/container/bedrock)
 
@@ -28,14 +30,14 @@ ARG WEST=-5
 ARG NORTH=55
 ARG SOUTH=29
 
-RUN gmt grdcut /bedrock/ETOPO1_Ice_g_gmt4.grd -R${WEST}/${EAST}/${SOUTH}/${NORTH} -G/bedrock/ETOPO1_asiaminor.grd
+RUN gmt grdcut /bedrock/ETOPO_2022_v1_30s_N90W180_surface.nc -R${WEST}/${EAST}/${SOUTH}/${NORTH} -G/bedrock/ETOPO1_asiaminor.nc
 
 FROM debian:stable-slim
 
 RUN apt update && \
     apt -y install gmt gmt-gshhg-high ghostscript
 
-COPY --from=builder /bedrock/ETOPO1_asiaminor.grd /bedrock/ETOPO1_asiaminor.grd
+COPY --from=builder /bedrock/ETOPO1_asiaminor.nc /bedrock/ETOPO1_asiaminor.nc
 
 CMD echo Bedrock!
 ```
@@ -45,11 +47,11 @@ Example Map: Copper World Relief (seen above):
 ```
 #!/usr/bin/env bash
 
-ETOPO1=/bedrock/ETOPO1_Ice_g_gmt4.grd
+ETOPO=/bedrock/ETOPO_2022_v1_30s_N90W180_ice.nc
 
 gmt begin /output/world
 gmt makecpt -Ccopper -T-18000/28500
-gmt grdimage ${ETOPO1} -n+c
+gmt grdimage ${ETOPO} -n+c
 gmt end
 ```
 

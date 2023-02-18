@@ -1,6 +1,7 @@
 FROM debian:stable-slim as builder
 ARG ETOPO_GRIDFILE
 ARG ETOPO_SURFACE
+ARG ETOPO_RES
 RUN apt update && \
         apt install -y -q --no-install-recommends \
         gzip ca-certificates && \
@@ -9,9 +10,13 @@ RUN apt update && \
 
 WORKDIR /bedrock
 
-# fetch and unzip ETOPO Grid file
-ADD https://ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/${ETOPO_SURFACE}/grid_registered/netcdf/${ETOPO_GRIDFILE}.gz /bedrock/${ETOPO_GRIDFILE}.gz
-RUN gunzip /bedrock/${ETOPO_GRIDFILE}.gz
+# 2022 GEOTIFF elevation
+# https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO2022/data/30s/30s_bed_elev_gtif/ETOPO_2022_v1_30s_N90W180_bed.tif
+
+# 2022 netcdf
+# https://www.ngdc.noaa.gov/thredds/fileServer/global/ETOPO2022/30s/30s_bed_elev_netcdf/ETOPO_2022_v1_30s_N90W180_bed.nc
+
+ADD https://www.ngdc.noaa.gov/thredds/fileServer/global/ETOPO2022/${ETOPO_RES}/${ETOPO_RES}_${ETOPO_SURFACE}_elev_netcdf/ETOPO_2022_v1_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}.nc /bedrock/${ETOPO_GRIDFILE}
 
 FROM debian:stable-slim
 ARG ETOPO_GRIDFILE
