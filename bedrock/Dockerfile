@@ -37,6 +37,7 @@ COPY --from=builder /bedrock/${ETOPO_GRIDFILE} /bedrock/${ETOPO_GRIDFILE}
 WORKDIR /bedrock
 COPY . .
 RUN python3 sha3sum.py /bedrock/${ETOPO_GRIDFILE} > /bedrock/${ETOPO_GRIDFILE}.sha3
+RUN VERIFICATION=$(cat /bedrock/${ETOPO_GRIDFILE}.sha3) && echo "${ETOPO_GRIDFILE} sha3 is ${VERIFICATION}"
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.name="bedrock" \
