@@ -23,7 +23,7 @@ ARG ETOPO_GRIDFILE
 RUN export DEBIAN_FRONTEND=noninteractive && \
         apt update && \
         apt install -y -q --no-install-recommends \
-        gmt gmt-gshhg-high ghostscript && \
+        gmt gmt-gshhg-high ghostscript python3 && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -33,6 +33,10 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN gmt --version
 
 COPY --from=builder /bedrock/${ETOPO_GRIDFILE} /bedrock/${ETOPO_GRIDFILE}
+
+WORKDIR /bedrock
+COPY . .
+RUN python3 sha3sum.py /bedrock/${ETOPO_GRIDFILE} > /bedrock/${ETOPO_GRIDFILE}.sha3
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.name="bedrock" \
