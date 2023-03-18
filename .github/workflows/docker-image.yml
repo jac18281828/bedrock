@@ -69,12 +69,12 @@ jobs:
             ETOPO_SURFACE=${{ matrix.surface }}
             VERSION=${{ github.event.release.tag_name }}            
           tags: |
-            ${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:${{ matrix.res }}-v${{ github.event.release.tag_name }}
-            ${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:${{ matrix.res }}-${{ env.REPOSITORY_SHA }}
-            ${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:${{ matrix.res }}
-            ${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:latest            
-            ghcr.io/${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:${{ matrix.res }}-v${{ github.event.release.tag_name }}
-            ghcr.io/${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:${{ matrix.res }}-${{ env.REPOSITORY_SHA }}
-            ghcr.io/${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:${{ matrix.res }}
-            ghcr.io/${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:latest
+            ${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ matrix.res }}-v${{ github.event.release.tag_name }}
+            ${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ matrix.res }}-${{ env.REPOSITORY_SHA }}
+            ${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ matrix.res }}
+            ${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}
+            ghcr.io/${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ matrix.res }}-v${{ github.event.release.tag_name }}
+            ghcr.io/${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ matrix.res }}-${{ env.REPOSITORY_SHA }}
+            ghcr.io/${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ matrix.res }}
+            ghcr.io/${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}
 

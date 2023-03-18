@@ -27,7 +27,6 @@ ARG ETOPO_VERSION
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt update && \
     apt install -y -q --no-install-recommends \
-    coreutils \ 
     gmt gmt-gshhg-high ghostscript python3 && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
@@ -42,8 +41,7 @@ COPY --from=builder /bedrock/ /bedrock/
 
 WORKDIR /bedrock
 COPY . .
-RUN sha256sum /bedrock/ETOPO_2022_${ETOPO_VERSION}_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}.nc > /bedrock/ETOPO_2022_${ETOPO_VERSION}_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}.nc.sha256
-RUN VERIFICATION=$(cat /bedrock/ETOPO_2022_${ETOPO_VERSION}_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}.nc.sha256) && echo "ETOPO_2022_${ETOPO_VERSION}_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}.nc sha256 is ${VERIFICATION}"
+RUN sha256sum /bedrock/ETOPO_2022_${ETOPO_VERSION}_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}.nc | tee /bedrock/ETOPO_2022_${ETOPO_VERSION}_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}.nc.sha256
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.name="bedrock" \

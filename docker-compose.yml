@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   etopo-2022-bedrock-30s:
-    image:  jac18281828/bedrock/bed:etopo-2022-30s-gmt6-bedrock-${VERSION}
+    image:  jac18281828/bedrock-bed:etopo-2022-30s-gmt6-bedrock-${VERSION}
     network_mode: none    
     build:
       context: bedrock/      
@@ -10,7 +10,7 @@ services:
         - ETOPO_SURFACE=bed
         - ETOPO_VERSION=v1
   etopo-2022-ice-surface-30s:
-    image:  jac18281828/bedrock/surface:etopo-2022-30s-gmt6-surface-${VERSION}
+    image:  jac18281828/bedrock-surface:etopo-2022-30s-gmt6-surface-${VERSION}
     network_mode: none    
     build:
       context: bedrock/      
