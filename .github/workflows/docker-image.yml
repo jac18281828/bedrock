@@ -21,7 +21,7 @@ jobs:
       matrix:
         surface: [bed, surface]
         res: [30s]
-        verion: [v1]
+        version: [v1]
     runs-on: ubuntu-latest
     steps:
       -
@@ -65,14 +65,16 @@ jobs:
           push: ${{ github.event_name == 'release' && github.event.action == 'created' }}
           build-args: |
             ETOPO_RES=${{ matrix.res }}
-            ETOPO_GRIDFILE=${{ matrix.gridfile }}
+            ETOPO_VERSION=${{ matrix.version }}
             ETOPO_SURFACE=${{ matrix.surface }}
             VERSION=${{ github.event.release.tag_name }}            
           tags: |
-            ${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ matrix.res }}-v${{ github.event.release.tag_name }}
-            ${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ matrix.res }}-${{ env.REPOSITORY_SHA }}
-            ${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ matrix.res }}
-            ghcr.io/${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ matrix.res }}-v${{ github.event.release.tag_name }}
-            ghcr.io/${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ matrix.res }}-${{ env.REPOSITORY_SHA }}
-            ghcr.io/${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ matrix.res }}
+            ${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:${{ matrix.res }}-v${{ github.event.release.tag_name }}
+            ${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:${{ matrix.res }}-${{ env.REPOSITORY_SHA }}
+            ${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:${{ matrix.res }}
+            ${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:latest            
+            ghcr.io/${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:${{ matrix.res }}-v${{ github.event.release.tag_name }}
+            ghcr.io/${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:${{ matrix.res }}-${{ env.REPOSITORY_SHA }}
+            ghcr.io/${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:${{ matrix.res }}
+            ghcr.io/${{ env.REPOSITORY_PATH }}/${{ matrix.surface }}:latest
 
