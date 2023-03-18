@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         surface: [bed, surface]
-        res: [30s, 15s]
+        res: [30s]
         verion: [v1]
     runs-on: ubuntu-latest
     steps:
