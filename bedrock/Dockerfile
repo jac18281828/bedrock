@@ -2,10 +2,10 @@ FROM debian:stable-slim as builder
 ARG ETOPO_SURFACE
 ARG ETOPO_RES
 ARG ETOPO_VERSION
-ARG ETOPO_GRIDFILE=ETOPO_2022_${ETOPO_VERSION}_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}
+
 RUN apt update && \
-        apt install -y -q --no-install-recommends \
-        gzip ca-certificates && \
+    apt install -y -q --no-install-recommends \
+    gzip ca-certificates && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -17,17 +17,18 @@ WORKDIR /bedrock
 # 2022 netcdf
 # https://www.ngdc.noaa.gov/thredds/fileServer/global/ETOPO2022/30s/30s_bed_elev_netcdf/ETOPO_2022_v1_30s_N90W180_bed.nc
 
-ADD https://www.ngdc.noaa.gov/thredds/fileServer/global/ETOPO2022/${ETOPO_RES}/${ETOPO_RES}_${ETOPO_SURFACE}_elev_netcdf/ETOPO_2022_v1_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}.nc /bedrock/${ETOPO_GRIDFILE}
+ADD https://www.ngdc.noaa.gov/thredds/fileServer/global/ETOPO2022/${ETOPO_RES}/${ETOPO_RES}_${ETOPO_SURFACE}_elev_netcdf/ETOPO_2022_${ETOPO_VERSION}_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}.nc .
 
 FROM debian:stable-slim
 ARG ETOPO_SURFACE
 ARG ETOPO_RES
 ARG ETOPO_VERSION
-ARG ETOPO_GRIDFILE=ETOPO_2022_${ETOPO_VERSION}_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}
+
 RUN export DEBIAN_FRONTEND=noninteractive && \
-        apt update && \
-        apt install -y -q --no-install-recommends \
-        gmt gmt-gshhg-high ghostscript python3 && \
+    apt update && \
+    apt install -y -q --no-install-recommends \
+    coreutils \ 
+    gmt gmt-gshhg-high ghostscript python3 && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -36,12 +37,13 @@ RUN rm -rf /var/lib/apt/lists/*
 
 RUN gmt --version
 
-COPY --from=builder /bedrock/${ETOPO_GRIDFILE} /bedrock/${ETOPO_GRIDFILE}
+
+COPY --from=builder /bedrock/ /bedrock/
 
 WORKDIR /bedrock
 COPY . .
-RUN python3 sha3sum.py /bedrock/${ETOPO_GRIDFILE} > /bedrock/${ETOPO_GRIDFILE}.sha3
-RUN VERIFICATION=$(cat /bedrock/${ETOPO_GRIDFILE}.sha3) && echo "${ETOPO_GRIDFILE} sha3 is ${VERIFICATION}"
+RUN sha256sum /bedrock/ETOPO_2022_${ETOPO_VERSION}_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}.nc > /bedrock/ETOPO_2022_${ETOPO_VERSION}_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}.nc.sha256
+RUN VERIFICATION=$(cat /bedrock/ETOPO_2022_${ETOPO_VERSION}_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}.nc.sha256) && echo "ETOPO_2022_${ETOPO_VERSION}_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}.nc sha256 is ${VERIFICATION}"
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.name="bedrock" \
