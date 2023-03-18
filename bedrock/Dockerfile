@@ -1,7 +1,8 @@
 FROM debian:stable-slim as builder
-ARG ETOPO_GRIDFILE
 ARG ETOPO_SURFACE
 ARG ETOPO_RES
+ARG ETOPO_VERSION
+ARG ETOPO_GRIDFILE=ETOPO_2022_${ETOPO_VERSION}_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}
 RUN apt update && \
         apt install -y -q --no-install-recommends \
         gzip ca-certificates && \
@@ -19,7 +20,10 @@ WORKDIR /bedrock
 ADD https://www.ngdc.noaa.gov/thredds/fileServer/global/ETOPO2022/${ETOPO_RES}/${ETOPO_RES}_${ETOPO_SURFACE}_elev_netcdf/ETOPO_2022_v1_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}.nc /bedrock/${ETOPO_GRIDFILE}
 
 FROM debian:stable-slim
-ARG ETOPO_GRIDFILE
+ARG ETOPO_SURFACE
+ARG ETOPO_RES
+ARG ETOPO_VERSION
+ARG ETOPO_GRIDFILE=ETOPO_2022_${ETOPO_VERSION}_${ETOPO_RES}_N90W180_${ETOPO_SURFACE}
 RUN export DEBIAN_FRONTEND=noninteractive && \
         apt update && \
         apt install -y -q --no-install-recommends \
