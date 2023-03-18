@@ -23,9 +23,15 @@ jobs:
         include:
           - surface: surface            
             gridfile: ETOPO_2022_v1_30s_N90W180_surface.nc
-            latest: ice_surface-latest
+            res: 30s
+            latest: ice_surface
+          - surface: bed
+            gridfile: ETOPO_2022_v1_15s_N90W180_bed.nc
+            res: 15s
+            latest: 15s
           - surface: bed
             gridfile: ETOPO_2022_v1_30s_N90W180_bed.nc
+            res: 30s
             latest: latest
     runs-on: ubuntu-latest
     steps:
@@ -69,7 +75,7 @@ jobs:
           platforms: linux/amd64, linux/arm64/v8
           push: ${{ github.event_name == 'release' && github.event.action == 'created' }}
           build-args: |
-            ETOPO_RES=30s
+            ETOPO_RES=${{ matrix.res }}
             ETOPO_GRIDFILE=${{ matrix.gridfile }}
             ETOPO_SURFACE=${{ matrix.surface }}
             VERSION=${{ github.event.release.tag_name }}            

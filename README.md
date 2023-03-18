@@ -2,7 +2,7 @@
 
 ### Updated for 2022 ETOPO 30 Arc Second High Resolution
 
-GMT 6 and ETOPO 2020 Docker image [Bedrock](https://hub.docker.com/r/jac18281828/bedrock)
+GMT 6 and ETOPO 2022 Docker image [Bedrock](https://hub.docker.com/r/jac18281828/bedrock)
 
 [Releases](https://github.com/jac18281828/bedrock/releases)
 
