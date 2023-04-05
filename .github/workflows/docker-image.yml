@@ -64,4 +64,3 @@ jobs:
             ghcr.io/${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ matrix.res }}-${{ env.REPOSITORY_SHA }}
             ghcr.io/${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}-${{ matrix.res }}
             ghcr.io/${{ env.REPOSITORY_PATH }}:${{ matrix.surface }}
-  
