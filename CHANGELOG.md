@@ -1,3 +1,7 @@
+# 1.2.13 (2023-04-05)
+
+* split release to its own workflow
+
 # 1.2.12 (2023-04-05)
 
 * indent
