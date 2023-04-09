@@ -1,4 +1,4 @@
-name: Docker Image Build Push CI
+name: Release Image CI
 
 on:
   push:
