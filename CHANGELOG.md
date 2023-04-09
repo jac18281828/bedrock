@@ -1,3 +1,7 @@
+# 1.2.16 (2023-04-08)
+
+* release image should run even when docker-image is running.  Especially when docker-image is running.
+
 # 1.2.15 (2023-04-05)
 
 * indent
