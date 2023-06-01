@@ -1,3 +1,7 @@
+# 1.2.17 (2023-05-01)
+
+* set description label
+
 # 1.2.16 (2023-04-08)
 
 * release image should run even when docker-image is running.  Especially when docker-image is running.
