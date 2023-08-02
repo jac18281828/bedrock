@@ -1,3 +1,7 @@
+# 1.2.18 (2023-08-02)
+
+* update release to use github.ref_name
+
 # 1.2.17 (2023-06-01)
 
 * set description label
