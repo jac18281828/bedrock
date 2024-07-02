@@ -1,3 +1,7 @@
+# 1.2.19 (2024-07-02)
+
+* update versions
+
 # 1.2.18 (2023-08-02)
 
 * update release to use github.ref_name
