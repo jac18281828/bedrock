@@ -1,14 +1,11 @@
 name: Docker Image Build Push CI
-
 on:
   push:
     tags:
       - "*"
-
 concurrency:
   group: "docker-image"
   cancel-in-progress: true
-
 jobs:
   dockerimage:
     strategy:

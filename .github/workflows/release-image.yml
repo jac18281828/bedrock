@@ -1,10 +1,8 @@
 name: Release Image CI
-
 on:
   push:
     tags:
       - "*"
-
 jobs:
   build:
     runs-on: ubuntu-latest
