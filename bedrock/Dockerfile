@@ -1,4 +1,4 @@
-FROM debian:stable-slim as builder
+FROM debian:stable-slim AS builder
 ARG ETOPO_SURFACE
 ARG ETOPO_RES
 ARG ETOPO_VERSION
@@ -23,6 +23,9 @@ FROM debian:stable-slim
 ARG ETOPO_SURFACE
 ARG ETOPO_RES
 ARG ETOPO_VERSION
+ARG BUILD_DATE
+ARG VCS_REF
+ARG VERSION
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt update && \
