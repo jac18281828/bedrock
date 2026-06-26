@@ -1,3 +1,8 @@
+# 1.2.20 (2026-06-26)
+
+* add commitlint and yamlfmt CI workflows
+* fix Dockerfile ARG/LABEL warnings and FROM/AS casing
+
 # 1.2.19 (2024-07-02)
 
 * update versions
